@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JY AJCE - Campus Ministry App</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="mobile-logo">JY AJCE</div>
+        <div class="user-avatar">
+            <i class="fa-solid fa-user"></i>
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">JY AJCE</div>
+                <div class="sidebar-tagline">Campus Ministry</div>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="nav-section-title">Main</div>
+                <div class="nav-item active" data-target="dashboard">
+                    <div class="icon"><i class="fa-solid fa-house"></i></div>
+                    Home Dashboard
+                </div>
+                <div class="nav-item" data-target="schedule">
+                    <div class="icon"><i class="fa-solid fa-calendar-week"></i></div>
+                    Schedule & Events
+                </div>
+
+                <div class="nav-section-title">Spiritual</div>
+                <div class="nav-item" data-target="prayers">
+                    <div class="icon"><i class="fa-solid fa-hands-praying"></i></div>
+                    Pray Box & Campus Prayer
+                </div>
+                <div class="nav-item" data-target="mass-tracker">
+                    <div class="icon"><i class="fa-solid fa-church"></i></div>
+                    Holy Mass & Tracker
+                </div>
+                <div class="nav-item" data-target="churches">
+                    <div class="icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    Nearby Churches
+                </div>
+
+                <div class="nav-section-title">Community</div>
+                <div class="nav-item" data-target="community">
+                    <div class="icon"><i class="fa-solid fa-users"></i></div>
+                    Ministry & Alumni
+                </div>
+                <div class="nav-item" data-target="birthdays">
+                    <div class="icon"><i class="fa-solid fa-cake-candles"></i></div>
+                    Birthdays & Blessings
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">JY</div>
+                <div class="user-info">
+                    <div class="user-name">Welcome User</div>
+                    <div class="user-role">AJCE Student</div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- 1. DASHBOARD PAGE -->
+            <section id="dashboard" class="section-page active">
+                <div class="page-header">
+                    <h1 class="page-title">Welcome to JY AJCE</h1>
+                    <p class="page-subtitle">Walking together in faith at Amal Jyothi College of Engineering</p>
+                </div>
+
+                <!-- Bible Quote (Feature 9) -->
+                <div class="bible-quote-card mb-lg">
+                    <i class="fa-solid fa-quote-left quote-icon" style="position:absolute; top:20px; left:20px;"></i>
+                    <p class="bible-quote-text" id="dailyBibleQuote">"I can do all things through Christ who strengthens
+                        me."</p>
+                    <p class="bible-quote-ref" id="dailyBibleRef">- Philippians 4:13</p>
+                    <i class="fa-solid fa-quote-right quote-icon"
+                        style="position:absolute; bottom:20px; right:20px;"></i>
+                </div>
+
+                <div class="grid-2 mb-lg">
+                    <!-- Streaks (Feature 14) -->
+                    <div class="card">
+                        <h2 class="card-title"><i class="fa-solid fa-fire emoji"></i> Your Faith Streaks</h2>
+                        <div class="grid-2">
+                            <div class="streak-display">
+                                <div class="streak-fire">🔥</div>
+                                <div>
+                                    <div class="streak-count" id="prayerStreak">3</div>
+                                    <div class="streak-label">Prayer Streak</div>
+                                </div>
+                            </div>
+                            <div class="streak-display">
+                                <div class="streak-fire" style="animation-delay: 0.5s;">⛪</div>
+                                <div>
+                                    <div class="streak-count" id="massStreak">1</div>
+                                    <div class="streak-label">Mass Streak</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-md text-center">
+                            <button class="btn btn-outline btn-sm" id="btnLogPrayer">Log Daily Prayer</button>
+                        </div>
+                    </div>
+
+                    <!-- Prayer Partner (Feature 10) -->
+                    <div class="card">
+                        <h2 class="card-title"><i class="fa-solid fa-handshake-angle emoji"></i> Prayer Partner</h2>
+                        <p class="text-secondary mb-md" style="font-size:13px;">Praying together makes us stronger. Get
+                            assigned a random prayer partner for this week.</p>
+
+                        <div id="prayerPartnerDisplay" style="display:none;" class="mb-md">
+                            <div class="flex items-center gap-md p-md"
+                                style="background:var(--bg-glass); border-radius:10px; padding:16px;">
+                                <div class="member-avatar"
+                                    style="width:48px;height:48px;font-size:20px;margin:0;background:linear-gradient(135deg,var(--purple),var(--emerald));">
+                                    P</div>
+                                <div>
+                                    <h4 style="font-size:15px;margin-bottom:4px;" id="partnerName">Name</h4>
+                                    <p style="font-size:12px;color:var(--text-secondary);">Keep them in your prayers
+                                        this week.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-full" id="btnAssignPartner">
+                            <i class="fa-solid fa-shuffle"></i> Get Random Prayer Partner
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Monthly Summary (Feature 15) -->
+                <div class="card mb-lg">
+                    <h2 class="card-title"><i class="fa-solid fa-chart-pie emoji"></i> Monthly Spiritual Summary</h2>
+                    <div class="monthly-summary">
+                        <p class="mb-md" style="font-weight:600; color:var(--gold-light);">This month so far:</p>
+                        <div class="grid-2">
+                            <div class="summary-row">
+                                <div class="summary-icon">⛪</div>
+                                <div>
+                                    <div class="summary-value" id="monthlyMassCount">0</div>
+                                    <div class="summary-desc">Masses attended</div>
+                                </div>
+                            </div>
+                            <div class="summary-row">
+                                <div class="summary-icon">🙏</div>
+                                <div>
+                                    <div class="summary-value" id="monthlyPrayerCount">0</div>
+                                    <div class="summary-desc">Prayers offered</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-md"
+                            style="font-style:italic;text-align:center;font-weight:500;color:var(--text-secondary);">
+                            "Keep going! God is working in you."</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. SCHEDULE & EVENTS PAGE -->
+            <section id="schedule" class="section-page">
+                <div class="page-header">
+                    <h1 class="page-title">Weekly Schedule & Events</h1>
+                    <p class="page-subtitle">Stay updated with gathering times and upcoming activities</p>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <!-- Weekly Schedule (Feature 1) -->
+                        <div class="card mb-lg">
+                            <h2 class="card-title"><i class="fa-regular fa-calendar emoji"></i> Weekly Schedule</h2>
+                            <div class="schedule-container" id="weeklySchedule">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Event Suggestion (Feature 8) -->
+                        <div class="card">
+                            <h2 class="card-title"><i class="fa-regular fa-lightbulb emoji"></i> Event Suggestion</h2>
+                            <p class="mb-md" style="font-size:13px; color:var(--text-secondary);">Have a great idea for
+                                our next gathering? Suggest it here!</p>
+                            <form id="eventSuggestionForm">
+                                <div class="form-group">
+                                    <label class="form-label">Event Name/Idea</label>
+                                    <input type="text" class="form-input" id="suggestEventName" required
+                                        placeholder="E.g., Worship Night">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-textarea" id="suggestEventDesc" required
+                                        placeholder="Details about your idea..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-gold w-full">Submit Suggestion</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- Past Activities (Feature 4 - Instagram Style) -->
+                        <div class="card mb-lg"
+                            style="padding: 16px; background: transparent; border: none; box-shadow: none;">
+                            <h2 class="card-title mb-md"><i class="fa-solid fa-camera-retro emoji"></i> Recent Moments
+                            </h2>
+                            <div id="pastActivitiesList">
+                                <!-- Insta Post 1 -->
+                                <div class="insta-post">
+                                    <div class="insta-header">
+                                        <div class="insta-avatar">JY</div>
+                                        <div>
+                                            <div class="insta-author">jy_ajce</div>
+                                            <div class="insta-date">March 15, 2026</div>
+                                        </div>
+                                    </div>
+                                    <div class="insta-image-placeholder">
+                                        <i class="fa-solid fa-cross"></i>
+                                    </div>
+                                    <div class="insta-actions">
+                                        <i class="fa-regular fa-heart"></i>
+                                        <i class="fa-regular fa-comment"></i>
+                                        <i class="fa-regular fa-paper-plane"></i>
+                                    </div>
+                                    <div class="insta-likes">142 likes</div>
+                                    <div class="insta-caption">
+                                        <strong>jy_ajce</strong> A beautiful day of prayer and reflection with Fr.
+                                        Thomas during the Lenten Retreat. Blessed to have such an amazing community! ✨🙏
+                                        #JesusYouth #AJCE #LentenRetreat
+                                    </div>
+                                </div>
+
+                                <!-- Insta Post 2 -->
+                                <div class="insta-post">
+                                    <div class="insta-header">
+                                        <div class="insta-avatar">JY</div>
+                                        <div>
+                                            <div class="insta-author">jy_ajce</div>
+                                            <div class="insta-date">February 28, 2026</div>
+                                        </div>
+                                    </div>
+                                    <div class="insta-image-placeholder">
+                                        <i class="fa-solid fa-hand-holding-heart"></i>
+                                    </div>
+                                    <div class="insta-actions">
+                                        <i class="fa-regular fa-heart"></i>
+                                        <i class="fa-regular fa-comment"></i>
+                                        <i class="fa-regular fa-paper-plane"></i>
+                                    </div>
+                                    <div class="insta-likes">215 likes</div>
+                                    <div class="insta-caption">
+                                        <strong>jy_ajce</strong> We collected over 500 items for the local orphanage
+                                        during our charity drive. Thank you to everyone who contributed! ❤️ Our faith is
+                                        dead without works. #Charity #AJCE #JY
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. PRAY BOX PAGE -->
+            <section id="prayers" class="section-page">
+                <div class="page-header">
+                    <h1 class="page-title">Spiritual Center</h1>
+                    <p class="page-subtitle">Campus prayer and prayer requests</p>
+                </div>
+
+                <!-- Campus Prayer (Feature 6) -->
+                <div class="campus-prayer mb-lg">
+                    <h2 class="campus-prayer-title">Campus Prayer</h2>
+                    <p class="campus-prayer-text">
+                        O Lord, let the campuses be filled with young missionaries blessed with the love of the Father,
+                        the grace of Christ and the anointing of the Holy Spirit.<br><br>Holy Mary, intercede for us.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Request a Prayer (Feature 7a) -->
+                    <div class="card">
+                        <h2 class="card-title"><i class="fa-solid fa-envelope-open-text emoji"></i> Request a Prayer
+                        </h2>
+                        <form id="prayerRequestForm">
+                            <div class="form-group">
+                                <label class="form-label">Your Name (or Anonymous)</label>
+                                <input type="text" id="prayerName" class="form-input" placeholder="Anonymous">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Prayer Intention</label>
+                                <textarea id="prayerIntention" class="form-textarea" required
+                                    placeholder="Who or what should we pray for?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-full">Drop in Pray Box</button>
+                        </form>
+                    </div>
+
+                    <!-- Pray for Someone (Feature 7b) -->
+                    <div class="card">
+                        <h2 class="card-title"><i class="fa-solid fa-hands-holding-circle emoji"></i> Pray for Someone
+                        </h2>
+                        <p class="mb-md" style="font-size:13px; color:var(--text-secondary);">Click 'Pray' to let them
+                            know they are in your prayers.</p>
+
+                        <div id="prayerBoard" style="max-height: 400px; overflow-y: auto; padding-right:10px;">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. HOLY MASS & REWARDS PAGE -->
+            <section id="mass-tracker" class="section-page">
+                <div class="page-header">
+                    <h1 class="page-title">Holy Mass Tracker</h1>
+                    <p class="page-subtitle">Track your attendance, set alarms, and unlock gifts</p>
+                </div>
+
+                <div class="grid-2 mb-lg">
+                    <!-- Mass Rewards (Feature 5) -->
+                    <div class="card">
+                        <h2 class="card-title"><i class="fa-solid fa-award emoji"></i> Attending Holy Mass Rewards</h2>
+                        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:15px;">
+                            Attend 10 Holy Masses and recite a Hail Mary to unlock a Virtual Rosary to gift to a friend!
+                        </p>
+
+                        <div class="flex justify-between items-center mb-sm">
+                            <span style="font-weight:600;">Progress</span>
+                            <span style="color:var(--gold); font-weight:700;"><span id="massCountText">0</span> /
+                                10</span>
+                        </div>
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar-fill" id="massProgressBar" style="width: 0%;"></div>
+                        </div>
+
+                        <div class="flex gap-md mt-lg">
+                            <button class="btn btn-outline flex-1" id="btnOpenMassModal">Log Holy Mass
+                                Attendance</button>
+                        </div>
+
+                        <div class="mt-md p-md text-center"
+                            style="background:rgba(212,168,83,0.1); border-radius:10px; display:none;"
+                            id="rewardUnlockedSection">
+                            <p style="color:var(--gold-light); font-weight:600; margin-bottom:15px;">🎉 Goal Reached!
+                            </p>
+                            <label style="display:block; font-size:12px; margin-bottom:5px;">Check to
+                                acknowledge:</label>
+                            <label
+                                style="display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; margin-bottom:15px; font-size:13px;">
+                                <input type="checkbox" id="hailMaryCheck">
+                                I have recited a Hail Mary
+                            </label>
+                            <button class="btn btn-gold w-full" id="btnClaimRosary" disabled>Claim & Gift Virtual
+                                Rosary</button>
+                        </div>
+                    </div>
+
+                    <!-- Automatic Alarm System (Feature 2) -->
+                    <div class="card">
+                        <h2 class="card-title"><i class="fa-solid fa-bell emoji"></i> Mass Alarm System</h2>
+                        <p class="mb-md" style="font-size:13px; color:var(--text-secondary);">Set automatic reminders so
+                            you never miss Holy Mass.</p>
+
+                        <div class="toggle-wrapper">
+                            <div>
+                                <div class="toggle-label">Daily Morning Mass Reminder</div>
+                                <div class="toggle-sublabel">Alerts at 6:00 AM</div>
+                            </div>
+                            <button class="toggle" id="alarmMassToggle" type="button"></button>
+                        </div>
+
+                        <div class="mt-md" id="activeAlarmsList">
+                            <h4
+                                style="font-size:12px; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">
+                                Your Active Alarms</h4>
+                            <div class="alarm-card" id="alarmCardDisplay" style="display:none;">
+                                <div><i class="fa-solid fa-clock"
+                                        style="font-size:30px; color:var(--purple-light);"></i></div>
+                                <div>
+                                    <div class="alarm-time">06:00 AM</div>
+                                    <div class="alarm-day-text">Daily Holy Mass Alert</div>
+                                </div>
+                            </div>
+                            <p id="noAlarmText" style="font-size:13px; color:var(--text-muted); font-style:italic;">No
+                                alarms currently active.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Virtual Rosary Gift Section (Appears via JS) -->
+                <div id="virtualRosaryContainer" style="display:none;">
+                    <div class="rosary-gift-card">
+                        <h2 class="rosary-gift-title">Virtual Rosary Gift</h2>
+                        <p style="color:var(--text-secondary); font-size:14px;">You have earned a Virtual Rosary! Gift
+                            it to a friend to bless them.</p>
+
+                        <div class="rosary-beads">
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                            <div class="bead filled"></div>
+                        </div>
+
+                        <div style="max-width: 400px; margin: 0 auto; text-align:left;">
+                            <div class="form-group">
+                                <label class="form-label">Friend's Name</label>
+                                <input type="text" class="form-input" id="giftFriendName" placeholder="E.g., John">
+                            </div>
+                            <button class="btn btn-primary w-full" id="btnSendGift">Send Spiritual Gift <i
+                                    class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. COMMUNITY PAGE (Ministry & Alumni) -->
+            <section id="community" class="section-page">
+                <div class="page-header">
+                    <h1 class="page-title">JY Community</h1>
+                    <p class="page-subtitle">Connect with ministry leaders and alumni</p>
+                </div>
+
+                <div class="tabs">
+                    <div class="tab active" data-tab="ministry">Ministry Profiles</div>
+                    <div class="tab" data-tab="alumni">Alumni Space</div>
+                </div>
+
+                <!-- Ministry Profiles (Feature 12) -->
+                <div id="tab-ministry" class="tab-content">
+                    <div class="grid-4" id="ministryGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Alumni Connecting Space (Feature 3) -->
+                <div id="tab-alumni" class="tab-content" style="display:none;">
+                    <div class="card mb-lg"
+                        style="background: linear-gradient(135deg, rgba(139,92,246,0.1), transparent);">
+                        <div>
+                            <h2
+                                style="font-family:'Playfair Display',serif; font-size:24px; color:var(--gold); margin-bottom:10px;">
+                                Alumni Network</h2>
+                            <p
+                                style="color:var(--text-secondary); font-size:14px; margin-bottom:20px; max-width:600px;">
+                                Connect with former Jyothians. Share job opportunities, guidance, and spiritual support.
+                            </p>
+                            <button class="btn btn-gold" id="btnJoinAlumni">Join Alumni Network</button>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size:16px; margin-bottom:16px; font-weight:600;">Recent Alumni Posts</h3>
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="flex items-center gap-sm mb-sm">
+                                <div class="member-avatar"
+                                    style="width:40px;height:40px;font-size:16px;margin:0;background:var(--purple);">AD
+                                </div>
+                                <div>
+                                    <div style="font-weight:600;font-size:14px;">Albin Davis</div>
+                                    <div style="font-size:11px;color:var(--text-muted);">Batch of 2021 | Software
+                                        Engineer @ TCS</div>
+                                </div>
+                            </div>
+                            <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                                Hey juniors! If anyone is looking for internship opportunities in web development, feel
+                                free to reach out. Always happy to help my JY family.
+                            </p>
+                            <div class="mt-md">
+                                <button class="btn btn-outline btn-sm">Connect</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="flex items-center gap-sm mb-sm">
+                                <div class="member-avatar"
+                                    style="width:40px;height:40px;font-size:16px;margin:0;background:var(--emerald);">MS
+                                </div>
+                                <div>
+                                    <div style="font-weight:600;font-size:14px;">Maria Sebastian</div>
+                                    <div style="font-size:11px;color:var(--text-muted);">Batch of 2023 | Civil Engineer
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="font-size:13px; color:var(--text-secondary); line-height:1.5;">
+                                Remembering my beautiful days at AJCE. The JY gatherings were my anchor. Keeping all
+                                current students in my prayers during your exam season!
+                            </p>
+                            <div class="mt-md">
+                                <button class="btn btn-outline btn-sm">Connect</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. BIRTHDAYS PAGE -->
+            <section id="birthdays" class="section-page">
+                <div class="page-header">
+                    <h1 class="page-title">Birthdays & Blessings</h1>
+                    <p class="page-subtitle">Celebrate life and send special blessings</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h2 class="card-title"><i class="fa-solid fa-cake-candles emoji"></i> Add Birthday</h2>
+                        <p class="mb-md" style="font-size:13px; color:var(--text-secondary);">Add your birthday or a
+                            friend's to generate special blessings and virtual gifts on that day.</p>
+
+                        <form id="birthdayForm">
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" id="bdayName" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <input type="date" id="bdayDate" class="form-input" required>
+                            </div>
+                            <button type="submit" class="btn btn-rose w-full"
+                                style="background:linear-gradient(135deg,var(--rose),#e11d48);color:white;border:none;">Add
+                                Birthday 🎂</button>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="card-title"><i class="fa-solid fa-gift emoji"></i> Upcoming Birthdays</h2>
+                        <div id="birthdayList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Special Blessing Simulation -->
+                <div class="card mt-lg"
+                    style="background: linear-gradient(135deg, rgba(244,63,94,0.1), rgba(212,168,83,0.1)); border-color: rgba(244,63,94,0.3); text-align:center; display:none;"
+                    id="specialBlessingCard">
+                    <div style="font-size:50px; margin-bottom:10px;">🎉🎂🕊️</div>
+                    <h2
+                        style="font-family:'Playfair Display',serif; color:var(--rose-light); font-size:28px; margin-bottom:10px;">
+                        Happy Birthday, <span id="blessingBdayName">Friend</span>!</h2>
+                    <p
+                        style="font-size:16px; color:var(--text-primary); max-width:600px; margin:0 auto 20px; font-style:italic;">
+                        "May the Lord bless you and keep you; may the Lord make His face shine upon you and be gracious
+                        to you." (Numbers 6:24-25).<br>
+                        Sending you special blessings and a virtual spiritual bouquet on your special day!
+                    </p>
+                    <button class="btn btn-primary" onclick="this.innerText='Blessing Sent!'; this.disabled=true;">Send
+                        Blessing</button>
+                </div>
+            </section>
+
+            <!-- 7. NEARBY CHURCHES -->
+            <section id="churches" class="section-page">
+                <div class="page-header">
+                    <h1 class="page-title">Nearby Churches</h1>
+                    <p class="page-subtitle">Find mass times for churches around AJCE</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="flex justify-between items-center mb-md">
+                            <h2 class="card-title" style="margin:0;"><i class="fa-solid fa-map-location-dot emoji"></i>
+                                Parishes details</h2>
+                            <span class="badge badge-gold">Amal Jyothi Vicinity</span>
+                        </div>
+
+                        <div class="church-card">
+                            <div class="church-icon">⛪</div>
+                            <div>
+                                <h4 class="church-name">St. Mary's Forane Church</h4>
+                                <p class="church-address">Kanjirappally (Town center)</p>
+                                <p class="church-mass-times">Holy Mass: Sun 6:00 AM, 7:30 AM, 9:30 AM, 4:30 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="church-card">
+                            <div class="church-icon">⛪</div>
+                            <div>
+                                <h4 class="church-name">St. Dominic's Cathedral</h4>
+                                <p class="church-address">Kanjirappally Cathedral</p>
+                                <p class="church-mass-times">Holy Mass: Sun 5:45 AM, 7:00 AM, 9:00 AM, 5:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="church-card">
+                            <div class="church-icon">⛪</div>
+                            <div>
+                                <h4 class="church-name">AJCE Campus Chapel</h4>
+                                <p class="church-address">Inside Campus, B-Block</p>
+                                <p class="church-mass-times">Holy Mass: Mon-Fri 6:30 AM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="display:flex; flex-direction:column;">
+                        <h2 class="card-title"><i class="fa-solid fa-map emoji"></i> Map View</h2>
+                        <div
+                            style="flex:1; background:rgba(0,0,0,0.3); border-radius:var(--radius-sm); border:1px dashed var(--border-glass); display:flex; align-items:center; justify-content:center; min-height:300px; flex-direction:column; gap:10px;">
+                            <i class="fa-solid fa-map-pin" style="font-size:40px; color:var(--gold);"></i>
+                            <p style="color:var(--text-muted); font-size:14px;">Interactive Map Integration</p>
+                            <span class="badge badge-purple">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Overlay for Mass Logging -->
+    <div class="modal-overlay" id="massModalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="closeMassModal"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="modal-title"><i class="fa-solid fa-church"></i> Log Holy Mass</h2>
+            <p style="color:var(--text-secondary); font-size:13px; margin-bottom:20px;">Record your attendance to keep
+                your streak and progress towards your spiritual gifts.</p>
+
+            <form id="massLogForm">
+                <div class="form-group">
+                    <label class="form-label">Date Attended</label>
+                    <input type="date" class="form-input" id="massDate" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Parish / Chapel Name</label>
+                    <select class="form-select" id="massParish" required>
+                        <option value="">Select Parish...</option>
+                        <option value="AJCE Campus Chapel">AJCE Campus Chapel</option>
+                        <option value="St. Mary's Forane Church">St. Mary's Forane Church</option>
+                        <option value="St. Dominic's Cathedral">St. Dominic's Cathedral</option>
+                        <option value="Other">Other Parish / Online</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Special Intention (Optional)</label>
+                    <textarea class="form-textarea" placeholder="Did you pray for something specific today?"
+                        style="min-height:80px;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-full" id="btnSubmitMassLog">Confirm Attendance</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">✨</div>
+        <div class="toast-msg" id="toastMsg">Action successful!</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
